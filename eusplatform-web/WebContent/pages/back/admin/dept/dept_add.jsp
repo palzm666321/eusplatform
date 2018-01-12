@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String DEPT_ADD_URL = "" ;
+	public static final String DEPT_ADD_URL = "pages/back/admin/dept/DeptActionFront!add.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/dept/dept_add.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -61,7 +61,7 @@
 							</div> 
 							<div class="form-group">
 								<div class="col-md-5 col-md-offset-3">
-									<button type="submit" class="btn btn-primary">增加</button>
+									<button type="submit" id="hand"  name="hand" class="btn btn-primary">增加</button>
 									<button type="reset" class="btn btn-warning">重置</button>
 								</div>
 							</div>

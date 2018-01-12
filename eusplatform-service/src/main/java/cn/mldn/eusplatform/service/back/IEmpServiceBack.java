@@ -1,10 +1,17 @@
 package cn.mldn.eusplatform.service.back;
 
+import java.util.List;
 import java.util.Map;
 
 import cn.mldn.eusplatform.vo.Emp;
 
 public interface IEmpServiceBack {
+	
+	
+	public List<Emp> list()throws Exception;
+	
+	public boolean add(Emp emp)throws Exception;
+	
 	/**
 	 * 实现用户的登录处理操作，该操作要执行如下的几步：
 	 * 1、调用IMemberDAO.findById()方法根据用户名查找用户的信息，随后进行密码比对，如果密码正确则表示登录成功；

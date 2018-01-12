@@ -74,10 +74,12 @@
 								<label class="col-md-3 control-label" for="jid">所属部门：</label>
 								<div class="col-md-5">
 									<select id="did" name="did" class="form-control">
+									
 										<option value="">====== 请选择所在部门 ======</option>
-										<option value="1">技术部</option>
-										<option value="2">财务部</option>
-										<option value="3">市场部</option>
+									<c:forEach items="${deptList}" var="vo">
+										<option value="${vo.did}">${vo.dname}</option>
+									</c:forEach>
+										
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->

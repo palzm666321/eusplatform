@@ -40,6 +40,8 @@
 						</tr>
 					</thead>
 					<tbody>
+					
+					
 						<tr>
 							<td class="text-center"><input type="checkbox" id="eid-1" value="1"></td>
 							<td class="text-center">
@@ -56,6 +58,8 @@
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
 							</td>
 						</tr>
+						
+						
 					</tbody>
 				</table>
 				<div id="splitBarDiv" style="float:right">

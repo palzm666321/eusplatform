@@ -15,6 +15,7 @@ public abstract class AbstractAction {
 	 */
 	public void print(Object obj) {
 		try {
+			ServletObjectUtil.getResponse().setCharacterEncoding("UTF-8");
 			ServletObjectUtil.getResponse().getWriter().println(obj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -54,4 +55,9 @@ public abstract class AbstractAction {
 	public void setMsg(ModelAndView mav ,String msgKey,String ... msgParam) {
 		mav.addObject("msg", ActionResourceUtil.getMessage(msgKey, msgParam));
 	}
+	
+	public String getEid() {
+		return (String) ServletObjectUtil.getRequest().getSession().getAttribute("eid");
+	}
+	
 }

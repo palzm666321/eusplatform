@@ -1,9 +1,12 @@
 package cn.mldn.eusplatform.service.back.impl;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.mldn.eusplatform.dao.IActionDAO;
+import cn.mldn.eusplatform.dao.IDeptDAO;
 import cn.mldn.eusplatform.dao.IEmpDAO;
 import cn.mldn.eusplatform.dao.IRoleDAO;
 import cn.mldn.eusplatform.service.back.IEmpServiceBack;
@@ -13,6 +16,20 @@ import cn.mldn.util.service.abs.AbstractService;
 
 public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBack {
 
+	@Override
+	public List<Emp> list() throws Exception {
+		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		IDeptDAO deptDAO=Factory.getDAOInstance("dept.dao");
+		return null;
+	}
+	
+	@Override
+	public boolean add(Emp emp) throws Exception {
+		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		emp.setHiredate(new Date());
+		return empDAO.doCreate(emp);
+	}
+	
 	@Override
 	public Map<String, Object> login(Emp emp) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>() ;

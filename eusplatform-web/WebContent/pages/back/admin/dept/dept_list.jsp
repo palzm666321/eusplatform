@@ -30,26 +30,22 @@
 						</tr>
 					</thead>
 					<tbody>
+					
+					<c:forEach items="${deptList}" var="vo">						
 						<tr>
-							<td class="text-center"><input type="text" id="dname-1" class="form-control" value="技术部" style="width:400px;"></td>
-							<td class="text-center"><input type="text" id="maxnum-1" class="form-control" value="10" style="width:100px;"></td>
+							<td class="text-center"><input type="text" id="dname-${vo.did}" class="form-control" value="${vo.dname}" style="width:400px;"></td>
+							<td class="text-center"><input type="text" id="maxnum-${vo.did}" class="form-control" value="${vo.maxnum}" style="width:100px;"></td>
 							<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td> 
-							<td class="text-center"><span class="text-danger">10</span></td>
+							<td class="text-center"><span class="text-danger" id="currnum-${vo.did}">${vo.currnum}</span></td>
 							<td class="text-center">
-								<button id="edit-1" class="btn btn-warning">
+								<input type="hidden" id="${vo.did}" name="${vo.did}">
+								<button id="edit-${vo.did}" class="btn btn-warning">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
 							</td>
 						</tr>
-						<tr>
-							<td class="text-center"><input type="text" id="dname-2" class="form-control" value="市场部" style="width:400px;"></td>
-							<td class="text-center"><input type="text" id="maxnum-2" class="form-control" value="10" style="width:100px;"></td>
-							<td class="text-center"><span id="eid-7566" style="cursor:pointer;">老李</span></td>
-							<td class="text-center"><span class="text-success">2</span></td>
-							<td class="text-center">
-								<button id="edit-2" class="btn btn-warning">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
-							</td>
-						</tr>
+					</c:forEach>
+		
+						
 					</tbody>
 				</table>
 			</div>
