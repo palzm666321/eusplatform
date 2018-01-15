@@ -9,8 +9,8 @@ import cn.mldn.util.action.ActionResourceUtil;
 public class SplitPageUtil {
 	private long currentPage = 1 ;	// 参数：cp
 	private int lineSize = 5 ;		// 参数：ls
-	private String column ;		// 参数：col
-	private String keyWord ;	// 参数：kw
+	private String column ="";		// 参数：col
+	private String keyWord ="";	// 参数：kw
 	/**
 	 * 将你需要进行模糊查询的columnData（下拉框）传递到组件之中，目的是为了属性操作
 	 * @param columnData 分页搜索的下拉列表数据

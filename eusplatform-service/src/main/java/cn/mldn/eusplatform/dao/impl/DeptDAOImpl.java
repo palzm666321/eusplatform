@@ -3,7 +3,9 @@ package cn.mldn.eusplatform.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import cn.mldn.eusplatform.dao.IDeptDAO;
@@ -12,6 +14,18 @@ import cn.mldn.util.dao.abs.AbstractDAO;
 
 public class DeptDAOImpl extends AbstractDAO implements IDeptDAO {
 
+	@Override
+	public Map<Long, String> findByDid() throws SQLException {
+		String sql="select did,dname from dept";
+		super.pstmt=super.conn.prepareStatement(sql);
+		ResultSet rs=super.pstmt.executeQuery();
+		Map<Long,String> map=new HashMap<Long,String>();
+		while(rs.next()) {
+			map.put(rs.getLong(1),rs.getString(2));
+		}
+		return map;
+	}
+	
 	@Override
 	public boolean doEdit(String eid,Long did) throws SQLException {
 		return false;
@@ -70,8 +84,20 @@ public class DeptDAOImpl extends AbstractDAO implements IDeptDAO {
 	}
 
 	@Override
-	public Dept findById(Long id) throws SQLException {
-		// TODO Auto-generated method stub
+	public Dept findById(Long did) throws SQLException {
+		String sql="select did,dname,eid,maxnum,currnum from dept where did=?";
+		super.pstmt=super.conn.prepareStatement(sql);
+		super.pstmt.setLong(1, did);
+		ResultSet rs=super.pstmt.executeQuery();
+		while(rs.next()) {
+			Dept vo=new Dept();
+			vo.setDid(rs.getLong(1));
+			vo.setDname(rs.getString(2));
+			vo.setEid(rs.getString(3));
+			vo.setMaxnum(rs.getInt(4));
+			vo.setCurrnum(rs.getInt(5));
+			return vo;
+		}
 		return null;
 	}
 

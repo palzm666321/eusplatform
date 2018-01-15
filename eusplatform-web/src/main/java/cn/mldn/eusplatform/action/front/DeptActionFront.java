@@ -20,7 +20,7 @@ public class DeptActionFront extends AbstractAction{
 	}
 	
 	public ModelAndView list() {
-		ModelAndView mav=new ModelAndView(ActionResourceUtil.getPage("front.emp.list.page"));
+		ModelAndView mav=new ModelAndView(ActionResourceUtil.getPage("front.dept.list.page"));
  		IDeptServiceBack deptService=Factory.getServiceInstance("dept.service.back");
 		try {
 			mav.addObject("deptList",deptService.list());
@@ -31,7 +31,7 @@ public class DeptActionFront extends AbstractAction{
 	}
 	
 	public ModelAndView add(Dept vo) {
-		ModelAndView mav=new ModelAndView(ActionResourceUtil.getPage("front.emp.list.page"));
+		ModelAndView mav=new ModelAndView(ActionResourceUtil.getPage("front.dept.list.page"));
 		IDeptServiceBack deptService=Factory.getServiceInstance("dept.service.back");
 		vo.setEid(super.getEid());
 		try {

@@ -5,7 +5,7 @@
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <script type="text/javascript" src="js/pages/back/admin/emp/emp_list.js"></script>
 <%!
-	public static final String EMP_EDIT_URL = "pages/back/admin/emp/emp_edit.jsp" ;
+	public static final String EMP_EDIT_URL = "pages/back/admin/emp/EmpActionFront!preEdit.action" ;
 %>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -41,24 +41,24 @@
 					</thead>
 					<tbody>
 					
-					
+					<c:forEach items="${empList}" var="vo">
 						<tr>
-							<td class="text-center"><input type="checkbox" id="eid-1" value="1"></td>
+							<td class="text-center"><input type="checkbox" id="eid-${vo.eid}" value="${vo.eid}"></td>
 							<td class="text-center">
-								<img src="upload/emp/nophoto.png" style="width:20px;"/> 
+								<img src="upload/emp/${vo.photo}" style="width:20px;"/> 
 							</td> 
-							<td class="text-center">老李</td>
-							<td class="text-center">经理</td>
-							<td class="text-center">人事部</td>
-							<td class="text-center">2019-10-10</td>
-							<td class="text-center">3000</td>
-							<td class="text-center">13010109992</td>
+							<td class="text-center">${vo.ename}</td>
+				 			<td class="text-center">${title[vo.lid]}</td>
+							<td class="text-center">${dname[vo.did]}</td> 
+							<td class="text-center">${vo.hiredate}</td>
+							<td class="text-center">${vo.salary}</td>
+							<td class="text-center">${vo.phone}</td>
 							<td class="text-center">
-								<a type="button" class="btn btn-warning btn-xs" href="<%=EMP_EDIT_URL%>?eid=">
+								<a type="button" class="btn btn-warning btn-xs" href="<%=EMP_EDIT_URL%>?eid=${vo.eid}">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
 							</td>
 						</tr>
-						
+					</c:forEach>
 						
 					</tbody>
 				</table>

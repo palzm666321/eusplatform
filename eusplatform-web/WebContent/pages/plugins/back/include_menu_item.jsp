@@ -8,8 +8,8 @@
 	public static final String DEPT_LIST_URL = "pages/back/admin/dept/DeptActionFront!list.action" ;
 	public static final String DEPT_ADD_URL = "pages/back/admin/dept/dept_add.jsp" ;
 	
-	public static final String EMP_ADD_URL = "pages/back/admin/emp/emp_add.jsp" ;
-	public static final String EMP_LIST_URL = "pages/back/admin/emp/emp_list.jsp" ;
+	public static final String EMP_ADD_URL = "pages/back/admin/emp/EmpActionFront!preAdd.action" ;
+	public static final String EMP_LIST_URL = "pages/back/admin/emp/EmpActionFront!list.action" ;
 	
 	public static final String SCHEDULE_ADD_URL = "pages/back/admin/schedule/schedule_add.jsp" ;
 	public static final String SCHEDULE_LIST_SELF_URL = "pages/back/admin/schedule/schedule_list_self.jsp" ;

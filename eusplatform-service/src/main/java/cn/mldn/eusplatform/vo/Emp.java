@@ -88,5 +88,12 @@ public class Emp implements Serializable {
 	}
 	public void setLocked(Integer locked) {
 		this.locked = locked;
+	}
+	@Override
+	public String toString() {
+		return "Emp [eid=" + eid + ", lid=" + lid + ", did=" + did + ", ename=" + ename + ", salary=" + salary
+				+ ", phone=" + phone + ", password=" + password + ", photo=" + photo + ", note=" + note + ", hiredate="
+				+ hiredate + ", ineid=" + ineid + ", locked=" + locked + "]";
 	} 
+
 }

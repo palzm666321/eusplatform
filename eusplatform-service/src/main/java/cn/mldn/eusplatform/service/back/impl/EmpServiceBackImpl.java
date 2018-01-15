@@ -2,31 +2,89 @@ package cn.mldn.eusplatform.service.back.impl;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cn.mldn.eusplatform.dao.IActionDAO;
 import cn.mldn.eusplatform.dao.IDeptDAO;
 import cn.mldn.eusplatform.dao.IEmpDAO;
+import cn.mldn.eusplatform.dao.ILevelDAO;
 import cn.mldn.eusplatform.dao.IRoleDAO;
 import cn.mldn.eusplatform.service.back.IEmpServiceBack;
 import cn.mldn.eusplatform.vo.Emp;
+import cn.mldn.eusplatform.vo.Level;
 import cn.mldn.util.factory.Factory;
 import cn.mldn.util.service.abs.AbstractService;
+import cn.mldn.util.web.ServletObjectUtil;
 
 public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBack {
 
-	@Override
-	public List<Emp> list() throws Exception {
+	public Long getCount(String column,String keyWord)throws Exception{
 		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		if(column=="") {
+			return empDAO.getAllCount();
+		}else {
+			return empDAO.getSplitCount(column, keyWord);
+		}
+	}
+	
+	@Override
+	public boolean edit(Emp vo) throws Exception {
+		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		vo.setHiredate(new Date());
+		vo.setLocked(0);
+		return empDAO.doEdit(vo);
+	}
+	
+	@Override
+	public Map<String,Object> listByEmp(String eid) throws Exception {
+		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		ILevelDAO levelDAO=Factory.getDAOInstance("level.dao");
 		IDeptDAO deptDAO=Factory.getDAOInstance("dept.dao");
-		return null;
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("emp", empDAO.findById(eid));
+		map.put("levelList", levelDAO.findAll());
+		map.put("deptList", deptDAO.findAll());
+		return map;
+	}
+	
+	@Override
+	public Map<String,Object> list(String column, String keyWord, Long currentPage, Integer lineSize) throws Exception {
+		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		ILevelDAO levelDAO=Factory.getDAOInstance("level.dao");
+		IDeptDAO deptDAO=Factory.getDAOInstance("dept.dao");
+		Map<String,Object> map=new HashMap<String,Object>();
+		if(column=="") {
+			map.put("empList",empDAO.findAll(currentPage, lineSize));
+		}else {
+			map.put("empList",empDAO.findSplit(column, keyWord,currentPage, lineSize));
+		}
+		map.put("title", levelDAO.findByLid());
+		map.put("dname", deptDAO.findByDid());
+		return map;
+	}
+	
+	public Level findByLevel(Double num)throws Exception{
+		ILevelDAO levelDAO=Factory.getDAOInstance("level.dao");
+		return levelDAO.getLevel(num);
+	}
+	
+	@Override
+	public Map<String,Object> listLevelAndDept() throws Exception {
+		IDeptDAO deptDAO=Factory.getDAOInstance("dept.dao");
+		ILevelDAO levelDAO=Factory.getDAOInstance("level.dao");
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("deptList", deptDAO.findAll());
+		map.put("levelList",levelDAO.findAll());
+		return map;
 	}
 	
 	@Override
 	public boolean add(Emp emp) throws Exception {
 		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		ILevelDAO levelDAO=Factory.getDAOInstance("level.dao");
 		emp.setHiredate(new Date());
+		emp.setLid(levelDAO.getLevel(emp.getSalary()).getLid());
+		emp.setLocked(0);
 		return empDAO.doCreate(emp);
 	}
 	

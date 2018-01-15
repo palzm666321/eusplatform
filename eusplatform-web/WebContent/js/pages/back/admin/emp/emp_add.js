@@ -1,4 +1,6 @@
 $(function(){
+	
+
 	$("#myform").validate({
 		debug : true, // 取消表单的提交操作
 		submitHandler : function(form) {

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String EMP_EDIT_URL = "" ;
+	public static final String EMP_EDIT_URL = "pages/back/admin/emp/EmpActionFront!edit.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/emp/emp_add.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -30,7 +30,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="password" name="password" class="form-control"
-										placeholder="请输入雇员登录密码">
+										placeholder="请输入雇员登录密码" value="${emp.password}">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="passwordMsg"></div>
@@ -41,7 +41,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="ename" name="ename" class="form-control"
-										placeholder="请输入雇员真实姓名">
+										placeholder="请输入雇员真实姓名" value="${emp.ename}">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="enameMsg"></div>
@@ -52,7 +52,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="phone" name="phone" class="form-control"
-										placeholder="请输入雇员联系电话">
+										placeholder="请输入雇员联系电话" value="${emp.phone}">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="phoneMsg"></div>
@@ -62,10 +62,16 @@
 								<label class="col-md-3 control-label" for="jid">所属部门：</label>
 								<div class="col-md-5">
 									<select id="did" name="did" class="form-control">
-										<option value="">====== 请选择所在部门 ======</option>
-										<option value="1">技术部</option>
-										<option value="2">财务部</option>
-										<option value="3">市场部</option>
+									
+									
+									
+											<c:forEach items="${deptList}" var="vo">
+												<option value="${vo.did}" ${vo.did.equals(emp.did)?"selected":""}>${vo.dname}</option>
+											</c:forEach>
+											
+											
+											
+											
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -75,11 +81,15 @@
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="jid">雇员职位：</label>
 								<div class="col-md-5">
-									<select id="jid" name="jid" class="form-control">
-										<option value="">====== 请选择雇员职务 ======</option>
-										<option value="1">总监</option>
-										<option value="2">部门经理</option>
-										<option value="3">部门员工</option>
+									<select id="lid" name="lid" class="form-control">
+									
+									
+											<c:forEach items="${levelList}" var="vo">
+												<option value="${vo.lid}" ${vo.lid.equals(emp.lid)?"selected":""}>${vo.title}</option>
+											</c:forEach>
+											
+											
+											
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -91,7 +101,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="salary" name="salary" class="form-control"
-										placeholder="请输入雇员基本工资">
+										placeholder="请输入雇员基本工资" value="${emp.salary}">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="salaryMsg"></div>
@@ -100,7 +110,7 @@
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="pic">雇员照片：</label>
 								<div class="col-md-5">
-									<img src="upload/emp/nophoto.png" style="width:200px;"/>
+									<img src="upload/emp/${emp.photo}" style="width:200px;"/>
 									<!-- 定义表单输入组件 -->
 									<input type="file" id="pic" name="pic" class="form-control"
 										placeholder="请选择雇员照片">
@@ -115,15 +125,15 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<textarea id="note" name="note"
-										class="form-control" placeholder="请输入雇员的面试情况" rows="10"></textarea>
+										class="form-control" placeholder="请输入雇员的面试情况" rows="10">${emp.note}</textarea>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="noteMsg"></div>
 							</div> 
 							<div class="form-group">
 								<div class="col-md-5 col-md-offset-3">
-									<input type="hidden" id="pic" value="">
-									<input type="hidden" id="eid" value="">
+									<input type="hidden" id="photo" name="photo" value="${emp.photo}">
+									<input type="hidden" id="eid" name="eid" value="${emp.eid}">
 									<button type="submit" class="btn btn-primary">编辑</button>
 									<button type="reset" class="btn btn-warning">重置</button>
 								</div>

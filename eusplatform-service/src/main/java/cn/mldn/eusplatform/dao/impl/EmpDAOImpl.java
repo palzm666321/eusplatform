@@ -48,8 +48,21 @@ public class EmpDAOImpl extends AbstractDAO implements IEmpDAO {
 
 	@Override
 	public boolean doEdit(Emp vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		String sql="update emp set lid=?,did=?,ename=?,salary=?,phone=?,password=?,photo=?,note=?,hiredate=?,ineid=?,locked=? where eid=?";
+		super.pstmt=super.conn.prepareStatement(sql);
+		super.pstmt.setLong(1, vo.getLid());
+		super.pstmt.setLong(2, vo.getDid());
+		super.pstmt.setString(3, vo.getEname());
+		super.pstmt.setDouble(4, vo.getSalary());
+		super.pstmt.setString(5, vo.getPhone());
+		super.pstmt.setString(6, vo.getPassword());
+		super.pstmt.setString(7, vo.getPhoto());
+		super.pstmt.setString(8, vo.getNote());
+		super.pstmt.setDate(9, new java.sql.Date(vo.getHiredate().getTime()));
+		super.pstmt.setString(10, vo.getIneid());
+		super.pstmt.setInt(11, vo.getLocked());
+		super.pstmt.setString(12, vo.getEid());
+		return super.pstmt.executeUpdate()>0;
 	}
 
 	@Override
@@ -97,7 +110,7 @@ public class EmpDAOImpl extends AbstractDAO implements IEmpDAO {
 		super.pstmt = super.conn.prepareStatement(sql) ;
 		ResultSet rs = super.pstmt.executeQuery() ;
 		List<Emp> list=new ArrayList<Emp>();
-		if (rs.next()) {
+		while (rs.next()) {
 			Emp emp = new Emp() ;
 			emp.setEid(rs.getString(1));
 			emp.setLid(rs.getLong(2));
@@ -118,26 +131,82 @@ public class EmpDAOImpl extends AbstractDAO implements IEmpDAO {
 
 	@Override
 	public List<Emp> findAll(Long currentPage, Integer lineSize) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT eid,lid,did,ename,salary,phone,password,photo,note,hiredate,ineid,locked "
+				+ " FROM emp WHERE locked=0 limit ?,?" ;
+		super.pstmt = super.conn.prepareStatement(sql) ;
+		super.pstmt.setLong(1, (currentPage-1)*lineSize);
+		super.pstmt.setInt(2, lineSize);
+		ResultSet rs = super.pstmt.executeQuery() ;
+		List<Emp> list=new ArrayList<Emp>();
+		while (rs.next()) {
+			Emp emp = new Emp() ;
+			emp.setEid(rs.getString(1));
+			emp.setLid(rs.getLong(2));
+			emp.setDid(rs.getLong(3));
+			emp.setEname(rs.getString(4));
+			emp.setSalary(rs.getDouble(5));
+			emp.setPhone(rs.getString(6));
+			emp.setPassword(rs.getString(7));
+			emp.setPhoto(rs.getString(8));
+			emp.setNote(rs.getString(9));
+			emp.setHiredate(rs.getDate(10));
+			emp.setIneid(rs.getString(11));
+			emp.setLocked(rs.getInt(12));
+			list.add(emp);
+		}
+		return list;
 	}
 
 	@Override
 	public List<Emp> findSplit(String column, String keyWord, Long currentPage, Integer lineSize) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT eid,lid,did,ename,salary,phone,password,photo,note,hiredate,ineid,locked "
+				+ " FROM emp WHERE "+column+" like ? and locked=0 limit ?,?" ;
+		super.pstmt = super.conn.prepareStatement(sql) ;
+		super.pstmt.setString(1, "%"+keyWord+"%");
+		super.pstmt.setLong(2, (currentPage-1)*lineSize);
+		super.pstmt.setInt(3, lineSize);
+		ResultSet rs = super.pstmt.executeQuery() ;
+		List<Emp> list=new ArrayList<Emp>();
+		while (rs.next()) {
+			Emp emp = new Emp() ;
+			emp.setEid(rs.getString(1));
+			emp.setLid(rs.getLong(2));
+			emp.setDid(rs.getLong(3));
+			emp.setEname(rs.getString(4));
+			emp.setSalary(rs.getDouble(5));
+			emp.setPhone(rs.getString(6));
+			emp.setPassword(rs.getString(7));
+			emp.setPhoto(rs.getString(8));
+			emp.setNote(rs.getString(9));
+			emp.setHiredate(rs.getDate(10));
+			emp.setIneid(rs.getString(11));
+			emp.setLocked(rs.getInt(12));
+			list.add(emp);
+		}
+		return list;
 	}
 
 	@Override
 	public Long getAllCount() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String sql="select count(*) from emp ";
+		super.pstmt=super.conn.prepareStatement(sql);
+		ResultSet rs=super.pstmt.executeQuery();
+		if(rs.next()) {
+			return rs.getLong(1);
+		}
+		return 0L;
 	}
 
 	@Override
 	public Long getSplitCount(String column, String keyWord) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String sql="select count(*) from emp where "+column+" like ?";
+		super.pstmt=super.conn.prepareStatement(sql);
+		super.pstmt.setString(1, "%"+keyWord+"%");
+		ResultSet rs=super.pstmt.executeQuery();
+		if(rs.next()) {
+			return rs.getLong(1);
+		}
+		return 0L;
 	}
 
 }

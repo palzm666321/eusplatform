@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String EMP_ADD_URL = "" ;
+	public static final String EMP_ADD_URL = "pages/back/admin/emp/EmpActionFront!add.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/emp/emp_add.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -74,8 +74,7 @@
 								<label class="col-md-3 control-label" for="jid">所属部门：</label>
 								<div class="col-md-5">
 									<select id="did" name="did" class="form-control">
-									
-										<option value="">====== 请选择所在部门 ======</option>
+									<option value="">=======请选择所属部门========</option>
 									<c:forEach items="${deptList}" var="vo">
 										<option value="${vo.did}">${vo.dname}</option>
 									</c:forEach>
@@ -90,10 +89,10 @@
 								<label class="col-md-3 control-label" for="jid">雇员职位：</label>
 								<div class="col-md-5">
 									<select id="jid" name="jid" class="form-control">
-										<option value="">====== 请选择雇员职位 ======</option>
-										<option value="1">总监</option>
-										<option value="2">部门经理</option>
-										<option value="3">部门员工</option>
+									<option value="">=======请选择雇员职位========</option>
+										 <c:forEach items="${levelList}" var="vo">
+											<option value="${vo.lid}">${vo.title}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -106,20 +105,21 @@
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="salary" name="salary" class="form-control"
 										placeholder="请输入雇员基本工资">
+									<span id="salary-span"></span>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="salaryMsg"></div>
 							</div>
-							<div class="form-group" id="picDiv">
+							<div class="form-group" id="photoDiv">
 								<!-- 定义表单提示文字 -->
-								<label class="col-md-3 control-label" for="pic">雇员照片：</label>
+								<label class="col-md-3 control-label" for="photo">雇员照片：</label>
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
-									<input type="file" id="pic" name="pic" class="form-control"
+									<input type="file" id="photo" name="photo" class="form-control"
 										placeholder="请选择雇员照片">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
-								<div class="col-md-4" id="picMsg"></div>
+								<div class="col-md-4" id="photoMsg"></div>
 							</div>
 							<!-- 定义输入表单样式，其中id主要用于设置颜色样式 -->
 							<div class="form-group" id="noteDiv">
