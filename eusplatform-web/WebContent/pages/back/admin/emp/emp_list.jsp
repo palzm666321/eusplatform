@@ -41,7 +41,7 @@
 					</thead>
 					<tbody>
 					
-					<c:forEach items="${empList}" var="vo">
+					<c:forEach items="${allEmps}" var="vo">
 						<tr>
 							<td class="text-center"><input type="checkbox" id="eid-${vo.eid}" value="${vo.eid}"></td>
 							<td class="text-center">

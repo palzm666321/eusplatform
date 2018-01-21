@@ -14,6 +14,7 @@ import cn.mldn.util.dao.abs.AbstractDAO;
 
 public class DeptDAOImpl extends AbstractDAO implements IDeptDAO {
 
+
 	@Override
 	public Map<Long, String> findByDid() throws SQLException {
 		String sql="select did,dname from dept";

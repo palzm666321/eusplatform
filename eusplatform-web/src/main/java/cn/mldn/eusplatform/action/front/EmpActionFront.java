@@ -51,7 +51,6 @@ public class EmpActionFront extends AbstractAction{
 		ModelAndView mav=new ModelAndView(ActionResourceUtil.getPage("front.emp.add.page"));
 		IEmpServiceBack empService=Factory.getServiceInstance("emp.service.back");
 		try {
-			super.print(empService.listLevelAndDept());
 			mav.addObjectMap(empService.listLevelAndDept());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +62,8 @@ public class EmpActionFront extends AbstractAction{
 		ModelAndView mav=new ModelAndView(ActionResourceUtil.getPage("front.emp.list.action"));
 		IEmpServiceBack empService=Factory.getServiceInstance("emp.service.back");
 		vo.setIneid(super.getEid());
-		System.out.println(vo.getPhoto());
 		try {
-			super.print(empService.add(vo));
+			empService.add(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

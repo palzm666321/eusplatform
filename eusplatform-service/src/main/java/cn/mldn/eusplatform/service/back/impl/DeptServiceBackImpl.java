@@ -1,5 +1,6 @@
 package cn.mldn.eusplatform.service.back.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import cn.mldn.eusplatform.dao.IDeptDAO;
@@ -10,6 +11,8 @@ import cn.mldn.util.service.abs.AbstractService;
 
 public class DeptServiceBackImpl extends AbstractService implements IDeptServiceBack {
 
+	
+	
 	@Override
 	public boolean edit(Dept vo) throws Exception {
 		IDeptDAO deptDAO=Factory.getDAOInstance("dept.dao");
@@ -30,7 +33,19 @@ public class DeptServiceBackImpl extends AbstractService implements IDeptService
 	public boolean add(Dept vo) throws Exception {
 		IDeptDAO deptDAO=Factory.getDAOInstance("dept.dao");
 		vo.setCurrnum(0);
-		return deptDAO.doCreate(vo);
+		List<Dept> list=deptDAO.findAll();
+		Iterator<Dept> it=list.iterator();
+		boolean flag=true;
+		while(it.hasNext()) {
+			Dept co=it.next();
+			if(co.getDname().equals(vo.getDname())) {
+				flag=false;
+			}
+		}
+		if(flag) {
+			return deptDAO.doCreate(vo);
+		}
+		return false;
 	}
 
 	

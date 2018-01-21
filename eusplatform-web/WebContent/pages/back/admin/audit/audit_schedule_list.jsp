@@ -5,7 +5,7 @@
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
 	public static final String AUDIT_SCHEDULE_LIST_URL = "pages/back/admin/audit/audit_schedule_list.jsp" ;
-	public static final String AUDIT_SCHEDULE_APPLY_URL = "pages/back/admin/audit/audit_schedule_apply.jsp" ;
+	public static final String AUDIT_SCHEDULE_APPLY_URL = "pages/back/admin/schedule/ScheduleActionFront!listByEid.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/travel/travel_list_audit.js"></script>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -38,45 +38,23 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
+						
+						<c:forEach items="${scheduleList}" var="vo">
+							<tr id="travel-${vo.sid}">
+								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;${vo.audit==-1||vo.audit==0?"未完成":"待审核"||vo.audit==1||vo.audit==2?"已审核":"通过"}</span></td>
 								<td class="text-center">
-									<a id="showBtn-1" onmouseover="this.style.cursor='hand'" href="<%=AUDIT_SCHEDULE_APPLY_URL%>">XX公司CRM项目</a>
+									<a id="showBtn-${vo.sid}" onmouseover="this.style.cursor='hand'" href="<%=AUDIT_SCHEDULE_APPLY_URL%>?sid=${vo.sid}">${vo.title}</a>
 								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
+									<td class="text-center">${vo.sdate}</td>
+								<td class="text-center">${vo.subdate}</td>
+								<td class="text-center">${vo.ecount}</td>
 								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=AUDIT_SCHEDULE_APPLY_URL%>">
+									<a type="button" class="btn btn-primary btn-xs" href="<%=AUDIT_SCHEDULE_APPLY_URL%>?sid=${vo.sid}">
 										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;处理申请</a>
 								</td>
 							</tr> 
-							<tr id="travel-2">
-								<td class="text-center"><span class="text-warning"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span></td>
-								<td class="text-center">
-									<a id="showBtn-2" onmouseover="this.style.cursor='hand'" href="<%=AUDIT_SCHEDULE_APPLY_URL%>">XX公司CRM项目</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=AUDIT_SCHEDULE_APPLY_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;处理申请</a>
-								</td>
-							</tr> 
-							<tr id="travel-3">
-								<td class="text-center"><span class="text-primary"><span class="glyphicon glyphicon-flag"></span>&nbsp;待提交</span></td>
-								<td class="text-center">
-									<a id="showBtn-3" onmouseover="this.style.cursor='hand'" href="<%=AUDIT_SCHEDULE_APPLY_URL%>">XX公司CRM项目</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=AUDIT_SCHEDULE_APPLY_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;处理申请</a>
-								</td>
-							</tr> 
+						</c:forEach>						
+							
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">

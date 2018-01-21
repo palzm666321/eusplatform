@@ -5,7 +5,7 @@
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <script type="text/javascript" src="js/pages/back/admin/audit/audit_schedule_apply.js"></script>
 <%!
-	public static final String SCHEDULE_REPORT_LIST_URL = "pages/back/admin/schedule/schedule_report.jsp" ;
+	public static final String SCHEDULE_REPORT_LIST_URL = "pages/back/admin/schedule/ScheduleActionFront!report.action" ;
 %>
 <body class="hold-transition skin-blue sidebar-mini"> 
 	<div class="wrapper">
@@ -26,27 +26,27 @@
 						<table class="table table-striped table-bordered table-hover">
 							<tr> 
 								<td style="width:150px;"><strong>申请标题：</strong></td>
-								<td>公司宣传广告</td>
+								<td>${schedule.title}</td>
 							</tr>
 							<tr>
 								<td><strong>任务类型：</strong></td>
-								<td>组织调度</td>
+								<td>${itemMap[schedule.iid]}</td>
 							</tr>
 							<tr>
 								<td><strong>总人数：</strong></td>
-								<td>30人</td>
+								<td>${schedule.ecount}人</td>
 							</tr>
 							<tr>
 								<td><strong>任务日期：</strong></td>
-								<td>2019-10-10</td>
+								<td>${schedule.subdate}</td>
 							</tr>
 							<tr>
 								<td><strong>任务描述：</strong></td>
-								<td>发射点发射得分</td>
+								<td>${schedule.note}</td>
 							</tr>
 							<tr>
 								<td><strong>任务报告：</strong></td>
-								<td><a type="button" class="btn btn-primary btn-xs" href="<%=SCHEDULE_REPORT_LIST_URL%>">
+								<td><a type="button" class="btn btn-primary btn-xs" href="<%=SCHEDULE_REPORT_LIST_URL%>?sid=${schedule.sid}">
 										<span class="fa fa-file-text-o"></span>&nbsp;查看任务报告</a></td>
 							</tr>
 						</table>
@@ -74,16 +74,19 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr id="travel-1">
-												<td class="text-center">
-													<img src="upload/emp/nophoto.png" style="width:20px;"/> 
-												</td>
-												<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-												<td class="text-center">3298239832</td>
-												<td class="text-center">部门员工</td>
-												<td class="text-center">2019-10-10</td>
-												<td class="text-center">开发部</td>
-											</tr> 
+										
+												<c:forEach items="${empList}" var="vo">
+													<tr id="travel-${vo.eid}">
+														<td class="text-center">
+															<img src="upload/emp/${vo.photo}" style="width:20px;"/> 
+														</td>
+														<td class="text-center"><span id="eid-7369" style="cursor:pointer;">${vo.ename}</span></td>
+														<td class="text-center">${vo.phone}</td>
+														<td class="text-center">${levelMap[vo.lid]}</td>
+														<td class="text-center">${vo.hiredate}</td>
+														<td class="text-center">${deptMap[vo.did]}</td>
+													</tr> 
+												</c:forEach>
 										</tbody>
 									</table>
 								</div>

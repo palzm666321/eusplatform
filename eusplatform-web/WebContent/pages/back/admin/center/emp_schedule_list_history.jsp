@@ -36,6 +36,8 @@
 							</tr>
 						</thead>
 						<tbody>
+						
+						<c:forEach items="${reportList}" var="vo">
 							<tr id="travel-1">
 								<td class="text-center"><span class="text-success"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
 								<td class="text-center">
@@ -47,28 +49,8 @@
 										<span class="fa fa-pencil-square-o"></span>&nbsp;任务报告</a>
 								</td>
 							</tr> 
-							<tr id="travel-2">
-								<td class="text-center"><span class="text-success"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
-								<td class="text-center">
-									<a id="showBtn-2" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=SCHEDULE_REPORT_URL%>">
-										<span class="fa fa-pencil-square-o"></span>&nbsp;任务报告</a>
-								</td>
-							</tr>  
-							<tr id="travel-3">
-								<td class="text-center"><span class="text-success"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
-								<td class="text-center">
-									<a id="showBtn-3" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=SCHEDULE_REPORT_URL%>">
-										<span class="fa fa-pencil-square-o"></span>&nbsp;任务报告</a>
-								</td>
-							</tr> 
+						</c:forEach>
+						
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">

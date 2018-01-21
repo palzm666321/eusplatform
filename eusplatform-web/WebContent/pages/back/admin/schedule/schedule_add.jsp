@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String SCHEDULE_ADD_URL = "" ;
+	public static final String SCHEDULE_ADD_URL = "pages/back/admin/schedule/ScheduleActionFront!add.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/schedule/schedule_add.js"></script>
 <script type="text/javascript" src="${basePath}js/my97date/WdatePicker.js"></script> 
@@ -43,8 +43,9 @@
 								<div class="col-md-5">
 									<select id="iid" name="iid" class="form-control">
 										<option value="">====== 请选择申请类型 ======</option>
-										<option value="">团建活动</option>
-										<option value="">项目开发</option>
+											<c:forEach items="${itemList}" var="vo">
+												<option value="${vo.iid}">${vo.title}</option>
+											</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->

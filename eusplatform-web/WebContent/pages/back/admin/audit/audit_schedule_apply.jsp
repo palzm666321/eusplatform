@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String SCHEDULE_AUDIT_URL = "" ;
+	public static final String SCHEDULE_AUDIT_URL = "pages/back/admin/schedule/ScheduleActionFront!editByAnote.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/audit/audit_schedule_apply.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -26,31 +26,31 @@
 						<table class="table table-striped table-bordered table-hover">
 							<tr> 
 								<td style="width:150px;"><strong>申请标题：</strong></td>
-								<td>公司宣传广告</td>
+								<td>${schedule.title}</td>
 							</tr>
 							<tr>
 								<td><strong>任务类型：</strong></td>
-								<td>组织调度</td>
+								<td>${itemMap[schedule.iid]}</td>
 							</tr>
 							<tr>
 								<td><strong>总人数：</strong></td>
-								<td>30人</td>
+								<td>${schedule.ecount}人</td>
 							</tr>
 							<tr>
 								<td><strong>申请日期：</strong></td>
-								<td>2019-10-10</td>
+								<td>${schedule.sdate}</td>
 							</tr>
 							<tr>
 								<td><strong>任务日期：</strong></td>
-								<td>2019-10-10</td>
+								<td>${schedule.subdate}</td>
 							</tr>
 							<tr>
 								<td><strong>任务描述：</strong></td>
-								<td>发射点发射得分</td>
+								<td>${schedule.note}</td>
 							</tr>
 							<tr>
 								<td><strong>审核信息：</strong></td>
-								<td>历史的所有审核信息</td>
+								<td>${schedule.audit==0?"待审核":""||schedule.audit==1||schedule.audit==2?"通过":"拒绝"}</td>
 							</tr>
 						</table>
 					</div>
@@ -62,11 +62,11 @@
 									<label class="col-md-3 control-label" for="destination">审核结论：</label>
 									<div class="col-md-5">
 										<div class="radio-inline">
-											<label><input type="radio" id="audit" value="2" checked>
+											<label><input type="radio" id="audit" name="audit" value="2" checked>
 												&nbsp;<span class="text-danger">拒绝</span></label>
 										</div> 
 										<div class="radio-inline">
-											<label><input type="radio" id="audit" value="1">
+											<label><input type="radio" id="audit" name="audit" value="1">
 												&nbsp;<span class="text-success">通过</span></label>
 										</div> 
 									</div>
@@ -79,7 +79,7 @@
 									<label class="col-md-3 control-label" for="note">审核备注：</label>
 									<div class="col-md-5">
 										<!-- 定义表单输入组件 -->
-										<textarea id="note" name="note" rows="3"
+										<textarea id="anote" name="anote" rows="3"
 											class="form-control" placeholder="请输入审核所给出的意见信息" rows="10"></textarea>
 									</div>
 									<!-- 定义表单错误提示显示元素 -->
@@ -87,6 +87,7 @@
 								</div> 
 								<div class="form-group">
 									<div class="col-md-5 col-md-offset-3">
+										<input type="hidden" id="sid" name="sid" value="${schedule.sid}">
 										<button type="submit" class="btn btn-primary">增加</button>
 										<button type="reset" class="btn btn-warning">重置</button>
 									</div>
@@ -99,7 +100,7 @@
 							<div class="panel-heading">
 								<h4 class="panel-title"> 
 									<a data-toggle="collapse" data-parent="news" href="#contentOne">
-										<strong><span class="glyphicon glyphicon-user"></span>&nbsp;出差人员安排（总人数：30人）</strong>
+										<strong><span class="glyphicon glyphicon-user"></span>&nbsp;出差人员安排（总人数：${schedule.ecount}人）</strong>
 									</a>
 								</h4>
 							</div>
@@ -118,17 +119,19 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr id="travel-1">
-												<td class="text-center">
-													<img src="upload/emp/nophoto.png" style="width:20px;"/> 
-												</td>
-												<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-												<td class="text-center">3298239832</td>
-												<td class="text-center">￥8923.23</td>
-												<td class="text-center">部门员工</td>
-												<td class="text-center">2019-10-10</td>
-												<td class="text-center">开发部</td>
-											</tr> 
+											<c:forEach items="${empList}" var="vo">
+												<tr id="travel-${vo.eid}">
+													<td class="text-center">
+														<img src="upload/emp/${vo.photo}" style="width:20px;"/> 
+													</td>
+													<td class="text-center"><span id="eid-${vo.eid}" style="cursor:pointer;">${vo.ename}</span></td>
+													<td class="text-center">${vo.phone}</td>
+													<td class="text-center">￥${vo.salary}</td>
+													<td class="text-center">${levelMap[vo.lid]}</td>
+													<td class="text-center">${vo.hiredate}</td>
+													<td class="text-center">${deptMap[vo.did]}</td>
+												</tr> 
+											</c:forEach>	
 										</tbody>
 									</table>
 								</div>

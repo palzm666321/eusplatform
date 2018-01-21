@@ -1,11 +1,21 @@
 package cn.mldn.eusplatform.service.back;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import cn.mldn.eusplatform.vo.Emp;
 import cn.mldn.eusplatform.vo.Level;
 
 public interface IEmpServiceBack {
+	
+	/**
+	 * 根据部门表中的编号查找所对应的雇员信息
+	 * @param did 部门编号
+	 * @return List<Emp> 雇员集合
+	 * @throws SQLException SQL
+	 */
+	public List<Emp> findByDid(Long did)throws Exception;
 	
 	/**
 	 * 根据所选列查询关键字返回数据量，如果没有，则返回所有数据量

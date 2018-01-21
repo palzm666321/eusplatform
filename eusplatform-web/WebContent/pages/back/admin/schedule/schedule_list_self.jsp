@@ -4,9 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String SCHEDULE_EDIT_URL = "pages/back/admin/schedule/schedule_edit.jsp" ;
-	public static final String SCHEDULE_DELETE_URL = "pages/back/admin/schedule/schedule_delete.jsp" ;
-	public static final String SCHEDULE_EMP_URL = "pages/back/admin/schedule/schedule_emp_edit.jsp" ;
+	public static final String SCHEDULE_EDIT_URL = "pages/back/admin/schedule/ScheduleActionFront!preEdit.action" ;
+	public static final String SCHEDULE_DELETE_URL = "pages/back/admin/schedule/ScheduleActionFront!remove.action" ;
+	public static final String SCHEDULE_EMP_URL = "pages/back/admin/schedule/ScheduleActionFront!traveler.action" ;
 	public static final String SCHEDULE_SUBMIT_URL = "pages/back/admin/schedule/schedule_submit.jsp" ;
 	public static final String SCHEDULE_SHOW_URL = "pages/back/admin/schedule/schedule_show.jsp" ;
 %>
@@ -41,63 +41,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
+						
+						<c:forEach items="${scheduleList}" var="vo">
+							<tr id="travel-${vo.sid}">
+								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;${vo.audit==-1||vo.audit==0?"未完成":"待审核"||vo.audit==1||vo.audit==2?"已审核":"通过"}</span></td>
 								<td class="text-center">
-									<a id="showBtn-1" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
+									<a id="showBtn-${vo.sid}" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">${itemMap[vo.iid]}</a>
 								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=SCHEDULE_SUBMIT_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=SCHEDULE_EMP_URL%>">
-										<span class="glyphicon glyphicon-user"></span>&nbsp;人员安排</a>
-									<a type="button" class="btn btn-info btn-xs" href="<%=SCHEDULE_EDIT_URL%>">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-									<a type="button" class="btn btn-danger btn-xs" href="<%=SCHEDULE_DELETE_URL%>">
-										<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
-								</td>
-							</tr> 
-							<tr id="travel-2">
-								<td class="text-center"><span class="text-warning"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span></td>
-								<td class="text-center">
-									<a id="showBtn-2" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
+								<td class="text-center">${vo.sdate}</td>
+								<td class="text-center">${vo.subdate}</td>
+								<td class="text-center">${vo.ecount}</td>
 								<td class="text-center">
 									<a type="button" class="btn btn-primary btn-xs" href="<%=SCHEDULE_SUBMIT_URL%>">
 										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
 									<a type="button" class="btn btn-warning btn-xs" href="<%=SCHEDULE_EMP_URL%>">
 										<span class="glyphicon glyphicon-user"></span>&nbsp;人员安排</a>
-									<a type="button" class="btn btn-info btn-xs" href="<%=SCHEDULE_EDIT_URL%>">
+									<a type="button" class="btn btn-info btn-xs" href="<%=SCHEDULE_EDIT_URL%>?sid=${vo.sid}">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-									<a type="button" class="btn btn-danger btn-xs" href="<%=SCHEDULE_DELETE_URL%>">
+									<a type="button" class="btn btn-danger btn-xs" href="<%=SCHEDULE_DELETE_URL%>?sid=${vo.sid}">
 										<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
 								</td>
 							</tr> 
-							<tr id="travel-3">
-								<td class="text-center"><span class="text-primary"><span class="glyphicon glyphicon-flag"></span>&nbsp;待提交</span></td>
-								<td class="text-center">
-									<a id="showBtn-3" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=SCHEDULE_SUBMIT_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=SCHEDULE_EMP_URL%>">
-										<span class="glyphicon glyphicon-user"></span>&nbsp;人员安排</a>
-									<a type="button" class="btn btn-info btn-xs" href="<%=SCHEDULE_EDIT_URL%>">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-									<a type="button" class="btn btn-danger btn-xs" href="<%=SCHEDULE_DELETE_URL%>">
-										<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
-								</td>
-							</tr> 
+						</c:forEach>
+					
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">

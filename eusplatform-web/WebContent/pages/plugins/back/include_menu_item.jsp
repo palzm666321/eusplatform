@@ -11,13 +11,13 @@
 	public static final String EMP_ADD_URL = "pages/back/admin/emp/EmpActionFront!preAdd.action" ;
 	public static final String EMP_LIST_URL = "pages/back/admin/emp/EmpActionFront!list.action" ;
 	
-	public static final String SCHEDULE_ADD_URL = "pages/back/admin/schedule/schedule_add.jsp" ;
-	public static final String SCHEDULE_LIST_SELF_URL = "pages/back/admin/schedule/schedule_list_self.jsp" ;
+	public static final String SCHEDULE_ADD_URL = "pages/back/admin/schedule/ScheduleActionFront!preAdd.action" ;
+	public static final String SCHEDULE_LIST_SELF_URL = "pages/back/admin/schedule/ScheduleActionFront!list.action" ;
 	
-	public static final String SCHEDULE_AUDIT_URL = "pages/back/admin/audit/audit_schedule_prepare.jsp" ;
-	public static final String SCHEDULE_LIST_URL = "pages/back/admin/audit/audit_schedule_list.jsp" ;
+	public static final String SCHEDULE_AUDIT_URL = "pages/back/admin/schedule/ScheduleActionFront!auditList.action" ;
+	public static final String SCHEDULE_LIST_URL = "pages/back/admin/schedule/ScheduleActionFront!scheduleList.action" ;
 	
-	public static final String EMP_SCHEDULE_PREPARE_URL = "pages/back/admin/center/emp_schedule_prepare.jsp" ;
+	public static final String EMP_SCHEDULE_PREPARE_URL = "pages/back/admin/schedule/ReportActionFront!list.action" ;
 	public static final String EMP_SCHEDULE_LIST_URL = "pages/back/admin/center/emp_schedule_list_history.jsp" ;
 %>
 <aside class="main-sidebar">

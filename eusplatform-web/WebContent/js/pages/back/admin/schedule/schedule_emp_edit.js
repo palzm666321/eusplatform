@@ -33,11 +33,12 @@ function loadData() {	// 该函数名称一定要固定，不许修改
 	did = $("#did").val() ;	// 取得指定组件的value
 	tid = $("#tid").val() ;
 	// console.log("部门编号：" + did) ;
+	 console.log("部门编号：" + did) ;
 	$.post("pages/back/admin/travel/emp_dept.action", {
 		"did" : did,
 		"cp" : jsCommonCp, 
 		"ls" : jsCommonLs,
-		"tid" : tid
+		"tid" : tid 
 	}, function(data) {
 		console.log(data);
 		$("#empTable tr:gt(0)").remove() ;
@@ -47,6 +48,8 @@ function loadData() {	// 该函数名称一定要固定，不许修改
 		createSplitBar(data.allRecorders) ;	// 创建分页控制项
 	}, "json");
 }
+
+
 function addTableRow(photo,eid,ename,sal,lid) {
 	level = "普通员工" ;
 	if (lid == "manager") {

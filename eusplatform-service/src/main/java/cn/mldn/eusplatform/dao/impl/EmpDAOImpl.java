@@ -14,6 +14,34 @@ import cn.mldn.util.dao.abs.AbstractDAO;
 
 public class EmpDAOImpl extends AbstractDAO implements IEmpDAO {
 
+	
+	@Override
+	public List<Emp> findByDid(Long did) throws SQLException {
+		String sql = "SELECT eid,lid,did,ename,salary,phone,password,photo,note,hiredate,ineid,locked "
+				+ " FROM emp WHERE locked=0 and did=?" ;
+		super.pstmt = super.conn.prepareStatement(sql) ;
+		super.pstmt.setLong(1, did);
+		ResultSet rs = super.pstmt.executeQuery() ;
+		List<Emp> list=new ArrayList<Emp>();
+		while (rs.next()) {
+			Emp emp = new Emp() ;
+			emp.setEid(rs.getString(1));
+			emp.setLid(rs.getLong(2));
+			emp.setDid(rs.getLong(3));
+			emp.setEname(rs.getString(4));
+			emp.setSalary(rs.getDouble(5));
+			emp.setPhone(rs.getString(6));
+			emp.setPassword(rs.getString(7));
+			emp.setPhoto(rs.getString(8));
+			emp.setNote(rs.getString(9));
+			emp.setHiredate(rs.getDate(10));
+			emp.setIneid(rs.getString(11));
+			emp.setLocked(rs.getInt(12));
+			list.add(emp);
+		}
+		return list;
+	}
+	
 	@Override
 		public Map<String, Long> findByEidAndDid(String eid) throws SQLException {
 			String sql="select eid,did from emp where eid=? and locked=0";
@@ -106,7 +134,7 @@ public class EmpDAOImpl extends AbstractDAO implements IEmpDAO {
 	@Override
 	public List<Emp> findAll() throws SQLException {
 		String sql = "SELECT eid,lid,did,ename,salary,phone,password,photo,note,hiredate,ineid,locked "
-				+ " FROM emp WHERE locked=0 " ;
+				+ " FROM emp WHERE locked=1 " ;
 		super.pstmt = super.conn.prepareStatement(sql) ;
 		ResultSet rs = super.pstmt.executeQuery() ;
 		List<Emp> list=new ArrayList<Emp>();

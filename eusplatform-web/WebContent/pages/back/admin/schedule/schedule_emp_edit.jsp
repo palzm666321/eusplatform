@@ -34,19 +34,23 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
+						
+					 <%-- 	<c:forEach items="${empList}" var="vo">
+							<tr id="travel-${vo.eid}">
 								<td class="text-center">
-									<img src="upload/emp/nophoto.png" style="width:20px;"/> 
+									<img src="upload/emp/${vo.photo}" style="width:20px;"/> 
 								</td>
-								<td class="text-center">7369</td>
-								<td class="text-center">老李</td>
-								<td class="text-center">部门员工</td>
-								<td class="text-center">开发部</td>
+								<td class="text-center">${vo.eid}</td>
+								<td class="text-center">${vo.ename}</td>
+								<td class="text-center">${levelMap[vo.lid]}</td>
+								<td class="text-center">${deptMap[vo.did]}</td>
 								<td class="text-center">
-									<button class="btn btn-danger btn-xs" id="remove-1">
+									<button class="btn btn-danger btn-xs" id="remove-${vo.eid}">
 										<span class="glyphicon glyphicon-remove"></span>&nbsp;移除</button>
 								</td>
 							</tr> 
+						</c:forEach> 	 --%>
+							
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">
@@ -75,9 +79,9 @@
 					<div class="col-md-5">
 						<select id="did" name="did" class="form-control">
 							<option value="">====== 请选择雇员所在部门 ======</option>
-							<option value="10">开发部</option>
-							<option value="10">市场部</option>
-							<option value="10">财务部</option>
+								<c:forEach items="${deptList}" var="vo">							
+									<option value="${vo.did}">${vo.dname}</option>
+								</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -95,7 +99,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
+							 <tr id="travel-1">
 								<td class="text-center">
 									<img src="upload/emp/nophoto.png" style="width:20px;"/> 
 								</td>
@@ -106,7 +110,7 @@
 									<button class="btn btn-danger btn-xs" id="remove-1">
 										<span class="glyphicon glyphicon-plus-sign"></span>&nbsp;增加</button>
 								</td>
-							</tr> 
+							</tr>  
 						</tbody>
 					</table>
 				</div>

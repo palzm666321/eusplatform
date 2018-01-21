@@ -23,27 +23,27 @@
 						<table class="table table-striped table-bordered table-hover">
 							<tr> 
 								<td style="width:150px;"><strong>申请标题：</strong></td>
-								<td>公司宣传广告</td>
+								<td>${schedule.title}</td>
 							</tr>
 							<tr>
 								<td><strong>任务类型：</strong></td>
-								<td>组织调度</td>
+								<td>${itemMap[schedule.iid]}</td>
 							</tr>
 							<tr>
 								<td><strong>总人数：</strong></td>
-								<td>30人</td>
+								<td>${schedule.ecount}人</td>
 							</tr>
 							<tr>
 								<td><strong>任务日期：</strong></td>
-								<td>2019-10-10</td>
+								<td>${schedule.sdate}</td>
 							</tr>
 							<tr>
 								<td><strong>任务描述：</strong></td>
-								<td>发射点发射得分</td>
+								<td>${schedule.note}</td>
 							</tr>
 							<tr>
 								<td><strong>任务组织者报告：</strong></td>
-								<td>本次活动圆满结束，感谢同志们的热心参与，同时重点要对xx提出表扬，发挥了不怕苦不怕累的精神。</td>
+								<td>${schedule.anote}</td>
 							</tr>
 						</table>
 					</div>
@@ -71,17 +71,19 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr id="travel-1">
-												<td class="text-center">
-													<img src="upload/emp/nophoto.png" style="width:20px;"/> 
-												</td>
-												<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-												<td class="text-center">3298239832</td>
-												<td class="text-center">部门员工</td>
-												<td class="text-center">开发部</td>
-												<td class="text-center">2019-10-10</td>
-												<td class="text-center">很高兴参与本次活动</td>
-											</tr> 
+											<c:forEach items="${empList}" var="vo">
+												<tr id="travel-${vo.eid}">
+													<td class="text-center">
+														<img src="upload/emp/${vo.photo}" style="width:20px;"/> 
+													</td>
+													<td class="text-center"><span id="eid-${vo.eid}" style="cursor:pointer;">${vo.ename}</span></td>
+													<td class="text-center">${vo.phone}</td>
+													<td class="text-center">${LevelMap[vo.lid]}</td>
+													<td class="text-center">${deptMap[vo.did]}</td>
+													<td class="text-center">${vo.hiredate}</td>
+													<td class="text-center"></td>
+												</tr> 
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

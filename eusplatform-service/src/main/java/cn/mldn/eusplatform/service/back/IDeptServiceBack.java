@@ -6,6 +6,7 @@ import cn.mldn.eusplatform.vo.Dept;
 
 public interface IDeptServiceBack {
 	
+	
 	/**
 	 * 修改部门名称和最大上限人数，最大上限人数不能低于当前人员并且当前用户必须为人事部用户（mldn-human）
 	 * @param vo 要修改的部门信息

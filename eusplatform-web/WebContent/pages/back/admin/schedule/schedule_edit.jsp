@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String SCHEDULE_EDIT_URL = "" ;
+	public static final String SCHEDULE_EDIT_URL = "pages/back/admin/schedule/ScheduleActionFront!edit.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/schedule/schedule_edit.js"></script>
 <script type="text/javascript" src="${basePath}js/my97date/WdatePicker.js"></script> 
@@ -32,7 +32,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="title" name="title" class="form-control"
-										placeholder="请输入出差申请标题">
+										placeholder="请输入出差申请标题" value="${schedule.title}">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="titleMsg"></div>
@@ -43,8 +43,9 @@
 								<div class="col-md-5">
 									<select id="iid" name="iid" class="form-control">
 										<option value="">====== 请选择申请类型 ======</option>
-										<option value="">团建活动</option>
-										<option value="">项目开发</option>
+											<c:forEach items="${itemList}" var="vo">
+													<option value="${vo.iid}" ${vo.iid==schedule.iid?"selected":""}>${vo.title}</option>
+											</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -56,7 +57,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="sdate" name="sdate" class="form-control"
-										placeholder="请选择任务执行开始日期" readonly>
+										placeholder="请选择任务执行开始日期" value="${schedule.sdate}" readonly>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="sdateMsg"></div>
@@ -68,14 +69,18 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<textarea id="note" name="note"
-										class="form-control" placeholder="请输入本次安排要处理的业务详情" rows="10"></textarea>
+										class="form-control" placeholder="请输入本次安排要处理的业务详情" rows="10">${schedule.note}</textarea>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="noteMsg"></div>
 							</div> 
 							<div class="form-group">
 								<div class="col-md-5 col-md-offset-3">
-									<input type="hidden" id="sid" name="sid" value="">
+									<input type="hidden" id="sid" name="sid" value="${schedule.sid}">
+									<input type="hidden" id="auddate" name="auddate" value="${schedule.auddate}">
+									<input type="hidden" id="ecount" name="ecount" value="${schedule.ecount}">
+									<input type="hidden" id="audit" name="audit" value="${schedule.audit}">
+									<input type="hidden" id="subdate" name="subdate" value="${schedule.subdate}">
 									<button type="submit" class="btn btn-primary">编辑</button>
 									<button type="reset" class="btn btn-warning">重置</button>
 								</div>

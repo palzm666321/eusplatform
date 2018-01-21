@@ -2,6 +2,7 @@ package cn.mldn.eusplatform.service.back.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.mldn.eusplatform.dao.IActionDAO;
@@ -14,10 +15,15 @@ import cn.mldn.eusplatform.vo.Emp;
 import cn.mldn.eusplatform.vo.Level;
 import cn.mldn.util.factory.Factory;
 import cn.mldn.util.service.abs.AbstractService;
-import cn.mldn.util.web.ServletObjectUtil;
 
 public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBack {
 
+	@Override
+	public List<Emp> findByDid(Long did) throws Exception {
+		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
+		return empDAO.findByDid(did);
+	}
+	
 	public Long getCount(String column,String keyWord)throws Exception{
 		IEmpDAO empDAO=Factory.getDAOInstance("emp.dao");
 		if(column=="") {
@@ -54,9 +60,9 @@ public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBa
 		IDeptDAO deptDAO=Factory.getDAOInstance("dept.dao");
 		Map<String,Object> map=new HashMap<String,Object>();
 		if(column=="") {
-			map.put("empList",empDAO.findAll(currentPage, lineSize));
+			map.put("allEmps",empDAO.findAll(currentPage, lineSize));
 		}else {
-			map.put("empList",empDAO.findSplit(column, keyWord,currentPage, lineSize));
+			map.put("allEmps",empDAO.findSplit(column, keyWord,currentPage, lineSize));
 		}
 		map.put("title", levelDAO.findByLid());
 		map.put("dname", deptDAO.findByDid());

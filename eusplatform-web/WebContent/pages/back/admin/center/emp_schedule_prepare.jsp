@@ -5,7 +5,7 @@
 <jsp:include page="/pages/plugins/back/back_header.jsp"/>
 <%!
 	public static final String EMP_TASK_EDIT_URL = "pages/back/admin/schedule/schedule_edit.jsp" ;
-	public static final String SCHEDULE_SHOW_URL = "pages/back/admin/schedule/schedule_show.jsp" ;
+	public static final String SCHEDULE_SHOW_URL = "pages/back/admin/schedule/ScheduleActionFront!show.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/schedule/schedule_list_self.js"></script>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -35,27 +35,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center"><span class="text-info"><span class="glyphicon glyphicon-flag"></span>&nbsp;待完成</span></td>
-								<td class="text-center">
-									<a id="showBtn-1" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-							</tr> 
-							<tr id="travel-2">
-								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span></td>
-								<td class="text-center">
-									<a id="showBtn-2" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-							</tr> 
-							<tr id="travel-3">
-								<td class="text-center"><span class="text-info"><span class="glyphicon glyphicon-flag"></span>&nbsp;待完成</span></td>
-								<td class="text-center">
-									<a id="showBtn-3" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>">公司外出宣传</a>
-								</td>
-								<td class="text-center">2018-10-10</td>
-							</tr> 
+						
+							<c:forEach items="${scheduleList}" var="vo">
+								<tr id="travel-${vo.sid}">
+									<td class="text-center"><span class="text-info"><span class="glyphicon glyphicon-flag"></span>&nbsp;${vo.audit==-1||vo.audit==0?"未完成":"待审核"||vo.audit==1||vo.audit==2?"已审核":"通过"}</span></td>
+									<td class="text-center">
+										<a id="showBtn-${vo.sid}" onmouseover="this.style.cursor='hand'" href="<%=SCHEDULE_SHOW_URL%>?sid=${vo.sid}">${vo.title}</a>
+									</td>
+									<td class="text-center">${vo.auddate}</td>
+								</tr> 
+							</c:forEach>
+							
+						 
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">
